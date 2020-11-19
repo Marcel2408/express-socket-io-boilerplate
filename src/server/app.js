@@ -1,5 +1,3 @@
-'use strict';
-
 const express = require('express');
 const cors = require('cors');
 const routerMiddleware = require('./routes/REST_routes');

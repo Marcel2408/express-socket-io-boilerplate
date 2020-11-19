@@ -1,9 +1,28 @@
-'use strict';
-
+/* eslint-disable no-console */
 const messageModel = require('../../models/message.models');
 const userModel = require('../../models/user.models');
 
-//Event handlers
+// Helper functions
+
+function addUser(id) {
+  userModel.main_room.push({ id, messageCount: 0 });
+  return userModel.main_room;
+}
+
+function removeUser(id) {
+  userModel.main_room = userModel.main_room.filter((user) => user.id !== id);
+  return userModel.main_room;
+}
+
+function getMessageCount(id) {
+  const { length } = messageModel.chatMessages;
+  const user = userModel.main_room.find((el) => el.id === id);
+  let { messageCount } = user;
+  if (messageCount !== length - 1) messageCount += 1;
+  return messageCount;
+}
+
+// Event handlers
 
 exports.addToDB = (id) => {
   try {
@@ -13,27 +32,27 @@ exports.addToDB = (id) => {
   }
 };
 
-exports.welcomeClient  = (data) => {
+exports.welcomeClient = (data) => {
   try {
     const message = messageModel.welcomeMessage;
-    return { message: message, sender: 'server' };
+    return { message, sender: 'server' };
   } catch (error) {
     console.error(error);
   }
 };
 
-exports.sendMessageToClient  = (data, id) => {
+exports.sendMessageToClient = (data, id) => {
   try {
     if (userModel.main_room.length === 1) {
       const messageCount = getMessageCount(id);
       const message = messageModel.chatMessages[messageCount];
       return {
-        message: message,
-        sender: 'server'
+        message,
+        sender: 'server',
       };
     }
     return {
-      message: data
+      message: data,
     };
   } catch (error) {
     console.error(error);
@@ -44,26 +63,3 @@ exports.onClientDisconnect = (id) => {
   const updatedClientList = removeUser(id);
   return updatedClientList;
 };
-
-//Helper functions
-
-function addUser (id) {
-  userModel.main_room.push({ id, messageCount: 0 });
-  return userModel.main_room;
-}
-
-function removeUser (id) {
-  let index = userModel.main_room.map(el => el.id).indexOf(id);
-  userModel.main_room.splice(index, 1);
-  return userModel.main_room;
-}
-
-function getMessageCount (id) {
-  const length = messageModel.chatMessages.length;
-  const user = userModel.main_room.find(el => el.id === id);
-  console.log(user);
-  const messageCount = user.messageCount;
-  messageCount < length - 1
-    ? user.messageCount++ : user.messageCount;
-  return messageCount;
-}

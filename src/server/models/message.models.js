@@ -1,5 +1,3 @@
-'use strict';
-
 // Mock database, replace this with your db models, required to perform query to your database.
 
 const messages = {
@@ -16,9 +14,9 @@ const messages = {
     'Ready or not, here it comes. I am an odd number. Take away a letter and I become even. What number am I?',
     'Seven...',
     'I am out of riddles. Join the reading room and enjoy the docs',
-    'I am out of riddles. You better get to work! Happy coding!'
+    'I am out of riddles. You better get to work! Happy coding!',
   ],
-  customMessages: []
+  customMessages: [],
 };
 
 module.exports = messages;

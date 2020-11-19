@@ -1,5 +1,3 @@
-'use strict';
-
 const messageController = require('../../controllers/message.controllers');
 
 module.exports = (Router) => {
@@ -9,4 +7,3 @@ module.exports = (Router) => {
     .post(messageController.postMessage);
   return router;
 };
-

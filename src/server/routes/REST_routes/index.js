@@ -1,15 +1,18 @@
+/* eslint-disable import/no-dynamic-require */
+/* eslint-disable global-require */
+/* eslint-disable no-console */
 const fs = require('fs');
 const path = require('path');
-const Router = require('express').Router;
+const { Router } = require('express');
 
-async function routerMiddleware (app) {
+async function routerMiddleware(app) {
   const appRouter = Router();
 
   try {
     fs
       .readdirSync(__dirname)
-      .filter(file => file !== 'index.js' || file.substr(file.lastIndexOf('.') + 1) !== 'js')
-      .forEach(async file => {
+      .filter((file) => file !== 'index.js' || file.substr(file.lastIndexOf('.') + 1) !== 'js')
+      .forEach(async (file) => {
         const pathRouter = require(path.join(__dirname, file))(Router);
         await appRouter.use(pathRouter);
       });
@@ -17,9 +20,6 @@ async function routerMiddleware (app) {
   } catch (error) {
     console.log(error);
   }
-};
+}
 
 module.exports = routerMiddleware;
-
-
-

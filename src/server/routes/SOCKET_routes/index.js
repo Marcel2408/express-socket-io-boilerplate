@@ -2,6 +2,8 @@ const io = require('socket.io')();
 const eventHandlers = require('./eventHandlers');
 
 io.on('connection', (socket) => {
+  console.log(io);
+  console.log(socket);
   let clients = eventHandlers.addToDB(socket.id);
   const connectedClients = () => clients.length;
 

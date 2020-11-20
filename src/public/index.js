@@ -8,6 +8,7 @@ const homeSection = document.querySelector('#home-section');
 const docsSection = document.querySelector('#documentation');
 
 const socket = io('http://localhost:3000');
+alert('hello!');
 socket.emit('/root/new_socket_connected');
 
 // Socket event handlers

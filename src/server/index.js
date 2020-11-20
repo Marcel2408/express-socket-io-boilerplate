@@ -1,4 +1,5 @@
 /* eslint-disable no-console */
+require('dotenv').config();
 const http = require('http');
 const app = require('./app');
 const io = require('./routes/SOCKET_routes');

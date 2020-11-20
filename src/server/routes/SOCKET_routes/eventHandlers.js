@@ -22,6 +22,8 @@ function getMessageCount(id) {
   return messageCount;
 }
 
+// test comment
+
 // Event handlers
 
 exports.addToDB = (id) => {

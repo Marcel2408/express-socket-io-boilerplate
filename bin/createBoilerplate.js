@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const process = require('process');
-const createBoilerplate = require('../index.js');
+const createBoilerplate = require('../source/index.js');
 
 // check passed arguments
 const args = process.argv.splice(process.execArgv.length + 2);

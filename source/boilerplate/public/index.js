@@ -8,8 +8,8 @@ const homeSection = document.querySelector('#home-section');
 const docsSection = document.querySelector('#documentation');
 
 const socket = io('http://localhost:3000');
-alert('hello!');
 socket.emit('/root/new_socket_connected');
+let socketId;
 
 // Socket event handlers
 function addMessage(data) {
@@ -24,10 +24,13 @@ function addMessage(data) {
   else setTimeout(() => chat.appendChild(listItem), 1000);
 }
 
-function welcomeUser(data) {
-  const { message, sender, id } = data;
-  addMessage({ message, sender });
-  clientId.innerHTML = id;
+function getPrevMsgs({ messages, id }) {
+  messages.forEach((msg) => {
+    const { message } = msg;
+    addMessage({ message, sender: 'server' });
+  });
+  socketId = id;
+  clientId.innerHTML = socketId;
 }
 
 function updateSocketCount(data) {
@@ -39,9 +42,8 @@ function updateSocketCount(data) {
 function sendMessage(e) {
   e.preventDefault();
   const { value } = input;
-  addMessage({ message: value, sender: 'user' });
   input.value = '';
-  socket.emit('/root/new_message', value);
+  socket.emit('/root/new_message', { socketId, message: value });
 }
 
 // Helper functions
@@ -68,7 +70,7 @@ docsLink.addEventListener('click', goToDocumentation);
 
 // Socket events
 // Whenever the server emits '/root/welcome' event, update website
-socket.on('/root/welcome', welcomeUser);
+socket.on('/root/welcome', getPrevMsgs);
 // Whenever the server emits '/root/update_socket_count' event, updates number of sockets connected
 socket.on('root/update_socket_count', updateSocketCount);
 // Whenever the server emits '/root/update_chat' event, add message to the chat

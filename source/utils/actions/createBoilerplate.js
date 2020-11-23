@@ -7,6 +7,8 @@ const createDirectories = require('../tools/createDirectories');
 const { copyFiles } = require('../tools/copyFiles');
 const { createsFiles } = require('../tools/createsFiles');
 const userForms = require('../tools/userForms');
+const structure = require('../tools/fileStructure');
+const { createDevs } = require('../tools/createDevs');
 
 async function createBoilerplate(appName, path) {
   // check presence of required dependencies
@@ -49,18 +51,8 @@ async function createBoilerplate(appName, path) {
   const db = answers.database.database;
   answers.database[db] = true;
 
-  const serverFolders = ['routers', 'models', 'controllers', 'services'];
+  const serverFolders = ['routers', 'models', 'controllers', 'services', 'socket', 'event_handlers'];
   await createDirectories(`${appName}/server`, ...serverFolders);
-  // await copyFiles(`${path}/source/boilerplate/server/app.js`, `${path}/${appName}/server/app.js`);
-  // await copyFiles(`${path}/source/boilerplate/server/index.js`, `${path}/${appName}/server/index.js`);
-
-  const structure = {
-    server: ['app.js', 'index.js', '.env'],
-    'server/controllers': ['message.controllers.js'],
-    'server/models': ['index.js', 'message.models.js'],
-    'server/routers': ['router.js'],
-    'server/services': ['index.js', 'deleteMessage.js', 'getMessages.js', 'postMessage.js', 'updateMessage.js'],
-  };
 
   const structurePaths = Object.keys(structure);
   structurePaths.forEach((folder) => {
@@ -68,12 +60,11 @@ async function createBoilerplate(appName, path) {
       const toWriteTo = `${path}/${appName}/${folder}/${file}`;
       const toWriteFrom = `${path}/source/boilerplate/${folder}/${file}.mustache`;
       createsFiles(answers, toWriteTo, toWriteFrom);
-      // await copyFiles(`${path}/source/boilerplate/${folder}/${file}`, `${path}/${appName}/${folder}/${file}`);
     });
   });
 
-  // console.log(answers);
-  // createsFiles(answers);
+  // create package.json and required devs
+  await createDevs(answers);
 }
 
 module.exports = createBoilerplate;

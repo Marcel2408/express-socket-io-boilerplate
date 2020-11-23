@@ -1,0 +1,20 @@
+{{#database.MongoDB}}
+const Message = require('../models/message.models');
+
+exports.updateMessage = async (id, message) => {
+  const messageToUpdate = await Message.findOne({ _id: id });
+  messageToUpdate.message = message;
+  await messageToUpdate.save();
+  return messageToUpdate;
+};
+{{/database.MongoDB}}
+{{#database.PostgreSQL}}
+const db = require('../models');
+
+exports.updateMessage = async (id, message) => {
+  const messageToUpdate = await db.Message.find({ where: { id } });
+  messageToUpdate.message = message;
+  await messageToUpdate.save();
+  return messageToUpdate;
+};
+{{/database.PostgreSQL}}

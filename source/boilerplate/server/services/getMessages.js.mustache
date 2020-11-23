@@ -1,0 +1,10 @@
+{{#database.MongoDB}}
+const Message = require('../models/message.models');
+
+exports.getMessages = () => Message.findAll();
+{{/database.MongoDB}}
+{{#database.PostgreSQL}}
+const db = require('../models');
+
+exports.getMessages = () => db.Message.findAll();
+{{/database.PostgreSQL}}

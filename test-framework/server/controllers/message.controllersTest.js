@@ -1,4 +1,3 @@
-const { test } = require('shelljs');
 const {
   getMessages, postMessage, deleteMessage, updateMessage,
 } = require('./message.controllers');
@@ -57,7 +56,6 @@ describe('Message controllers unit test', () => {
       expect.assertions(4);
       return postMessage(req, res)
         .then(() => {
-          console.log('mockMessage in post', req.body);
           expect(services.postMessage).toHaveBeenCalled();
           expect(services.postMessage)
             .toHaveBeenCalledWith(mockMessage.socketId, mockMessage.message);

@@ -1,8 +1,8 @@
-const { getMessages } = require('../services');
+const services = require('../services');
 
 exports.newSocketConnected = async (io, socket) => {
   try {
-    const messages = await getMessages();
+    const messages = await services.getMessages();
     const clientCount = io.sockets.server.eio.clientsCount;
     socket.emit('/root/welcome', { messages, id: socket.id });
     io.sockets.emit('root/update_socket_count', { clientCount });

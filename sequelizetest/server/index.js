@@ -3,7 +3,7 @@ require('dotenv').config();
 const http = require('http');
 const app = require('./app');
 const io = require('./socket');
-const db = require('./models');
+const db = require('./models')('production');
 
 const hostname = process.env.HOST || 'localhost';
 const port = process.env.PORT || 3000;

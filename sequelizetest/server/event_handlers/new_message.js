@@ -1,8 +1,8 @@
-const { postMessage } = require('../services');
+const services = require('../services');
 
-exports.newMessage = async (socket, {socketId, message}) => {
+exports.newMessage = async (socket, { socketId, message }) => {
   try {
-    const msg = await postMessage(socketId, message);
+    const msg = await services.postMessage(socketId, message);
     socket.emit('/root/update_chat', {
       message: msg.message,
       socketId: msg.socketId,

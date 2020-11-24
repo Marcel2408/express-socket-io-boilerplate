@@ -1,6 +1,6 @@
 const shell = require('shelljs');
 
-const devs = ['express', 'cors', 'dotenv', 'socket.io', 'socket.io-client'];
+const devs = ['express', 'cors', 'dotenv', 'socket.io', 'socket.io-client', 'jest'];
 exports.createDevs = async ({ database }) => {
   const dbDevs = database.MongoDB ? 'mongoose' : 'pg pg-hstore sequelize';
   await shell.exec('npm init -y');

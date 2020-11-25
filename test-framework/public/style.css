@@ -264,6 +264,10 @@ section {
   border-top-left-radius: 10px;
 }
 
+.hidden {
+  display: none;
+}
+
 @keyframes animateLogo {
   0% {border-color:black;
       transform: scale(1)

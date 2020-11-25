@@ -2,52 +2,45 @@ const fs = require('fs');
 const path = require('path');
 const shell = require('shelljs');
 const createBoilerplate = require('./source/index.js');
+const expectedFileStructure = require('./expectedFileStructure');
 
 const testFolder = `${__dirname}/test`;
 const callerPath = process.cwd();
 
-// const getAllFiles = function (dirPath, arrayOfFiles) {
-//   const files = fs.readdirSync(dirPath);
+const getAllFiles = function (dirPath, arrayOfFiles) {
+  const files = fs.readdirSync(dirPath);
 
-//   arrayOfFiles = arrayOfFiles || [];
+  arrayOfFiles = arrayOfFiles || [];
 
-//   files.forEach((file) => {
-//     if (fs.statSync(`${dirPath}/${file}`).isDirectory() && file !== 'node_modules' && file !== '.git') {
-//       arrayOfFiles = getAllFiles(`${dirPath}/${file}`, arrayOfFiles);
-//     } else {
-//       arrayOfFiles.push(path.join(file));
-//     }
-//   });
+  files.forEach((file) => {
+    if (fs.statSync(`${dirPath}/${file}`).isDirectory() && file !== 'node_modules' && file !== '.git') {
+      arrayOfFiles = getAllFiles(`${dirPath}/${file}`, arrayOfFiles);
+    } else if (file !== 'node_modules' && file !== '.git') arrayOfFiles.push(path.join(file));
+  });
 
-//   return arrayOfFiles;
-// };
+  return arrayOfFiles;
+};
 
-// let expectedFiles = ['.git',
-//   'node_modules',
-//   'package-lock.json',
-//   'package.json',
-// ];
-
-async function testsPass() {
+const testsPass = async () => {
   try {
-    await process.chdir(testFolder);
-    const shellCommand = await shell.exec('npm run test');
-    console.log(shellCommand);
-    return true;
+    process.chdir(testFolder);
+    const put = shell.exec('npm run test');
+    return !put.stderr.includes('ERR!');
   } catch (error) {
-    console.log(error);
     return false;
   }
-}
+};
 
 describe('Check that file structure is copied correctly', () => {
   beforeAll(() => createBoilerplate('test', callerPath));
-  // expectedFiles = getAllFiles(`${__dirname}/src`, expectedFiles);
   afterAll(() => fs.rmdir(testFolder, { recursive: true }, (err) => {
     if (err) {
       throw err;
     }
   }));
-  // it('checks the files have been created', async () => expect(getAllFiles(testFolder)).toEqual(expectedFiles));
-  it('checks that the tests run after installation', () => expect(testsPass()).toBe(true));
+  it('checks the files have been created with the correct structure', () => {
+    expect(getAllFiles(testFolder)).toEqual(expect.arrayContaining(expectedFileStructure));
+  });
+  it('checks that the tests run after installation', () => testsPass()
+    .then((result) => expect(result).toBe(true)));
 });

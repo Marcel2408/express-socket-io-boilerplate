@@ -5,7 +5,7 @@ const devs = ['express', 'cors', 'dotenv', 'socket.io', 'socket.io-client'];
 const saveDevs = ['jest'];
 const scripts = {
   start: 'NODE_ENV=PROD node ./server',
-  test: 'NODE_ENV=TEST jest',
+  test: 'NODE_ENV=TEST jest -i',
 };
 exports.createDevs = async ({ database }, appName, path) => {
   const dbDevs = database.MongoDB ? 'mongoose' : 'pg pg-hstore sequelize';

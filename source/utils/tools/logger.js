@@ -1,5 +1,15 @@
 const chalk = require('chalk');
 
+module.exports.multicolor = (message) => {
+  let i = 0;
+  const colors = [chalk.rgb(184, 17, 184), chalk.rgb(7, 96, 131), chalk.magenta, chalk.yellow, chalk.blue, chalk.grey, chalk.green];
+  console.log(message.split('').reduce((a, b) => {
+    i += 1;
+    if (i === 7) i = 0;
+    return a += colors[i](b);
+  }, ''));
+};
+
 module.exports.highlight = (message, expression = '') => message.replace(expression, chalk.bold.whiteBright(expression));
 
 module.exports.log = (message = '', status = null) => {

@@ -7,7 +7,7 @@ const expectedFileStructure = require('./expectedFileStructure');
 const testFolder = `${__dirname}/test`;
 const callerPath = process.cwd();
 
-const getAllFiles = function (dirPath, arrayOfFiles) {
+const getAllFiles = (dirPath, arrayOfFiles) => {
   const files = fs.readdirSync(dirPath);
 
   arrayOfFiles = arrayOfFiles || [];

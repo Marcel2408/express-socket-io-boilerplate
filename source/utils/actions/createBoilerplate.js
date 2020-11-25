@@ -12,7 +12,6 @@ const { createDevs } = require('../tools/createDevs');
 
 async function createBoilerplate(appName, path) {
   // check presence of required dependencies
-  console.log(path);
 
   const requiredDep = ['git', 'npm', 'npx'];
 
@@ -64,7 +63,7 @@ async function createBoilerplate(appName, path) {
   });
 
   // create package.json and required devs
-  await createDevs(answers);
+  await createDevs(answers, appName, path);
 }
 
 module.exports = createBoilerplate;

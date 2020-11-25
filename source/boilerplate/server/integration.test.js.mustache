@@ -22,7 +22,11 @@ const updateMsg = 'Nice, we can update this!';
 
 beforeAll((done) => {
   db.connection.on('connected', () => {
-    done();
+    Message.find()
+      .then((isFull) => {
+        if (isFull.length) Message.collection.drop();
+        done();
+      });
   });
 });
 

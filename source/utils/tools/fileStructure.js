@@ -1,5 +1,5 @@
 module.exports = {
-  server: ['app.js', 'index.js', '.env'],
+  server: ['app.js', 'index.js', '.env', 'integration.test.js'],
   'server/controllers': ['message.controllers.js', 'message.controllers.test.js'],
   'server/models': ['index.js', 'message.models.js', 'message.models.test.js'],
   'server/routers': ['router.js'],

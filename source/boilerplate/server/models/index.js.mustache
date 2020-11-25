@@ -1,7 +1,7 @@
 {{#database.MongoDB}}
 const mongoose = require('mongoose');
 const path = require('path');
-require('dotenv').config({ path: path.join(__dirname, '../../.env') });
+require('dotenv').config({ path: path.join(__dirname, '../.env') });
 
 const currentDb = (process.env.NODE_ENV === 'TEST'
   ? process.env.DB_TEST_NAME
@@ -15,7 +15,7 @@ module.exports = mongoose;
 const fs = require('fs');
 const path = require('path');
 const Sequelize = require('sequelize');
-require('dotenv').config({ path: path.join(__dirname, '../../.env') });
+require('dotenv').config({ path: path.join(__dirname, '../.env') });
 
 const basename = path.basename(__filename);
 const db = {};

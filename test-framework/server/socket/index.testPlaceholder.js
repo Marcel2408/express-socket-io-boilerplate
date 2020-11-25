@@ -1,0 +1,84 @@
+const app = require('../app.js');
+const http = require('http').createServer(app);
+const io = require('socket.io-client');
+const ioServer = require('./index');
+
+const services = require('../services/index.js');
+
+jest.mock('../services/index.js', () => ({ services: () => {} }));
+
+const ioConfig = {
+  transports: ['websocket'],
+  forceNew: true,
+  reconnection: false,
+};
+
+const mockMessage = {
+  _id: '7827852785278527852',
+  socketId: '279472WJWHHWHUFWHWRHITHWIA',
+  message: 'Hello World',
+};
+
+describe.only('Suite of unit tests', () => {
+  let socket;
+  let socket2;
+
+  beforeAll((done) => {
+    ioServer.attach(http.listen(3000));
+    done();
+  });
+
+  afterAll((done) => {
+    ioServer.close();
+    done();
+  });
+
+  beforeEach((done) => {
+    socket = io.connect('http://localhost:3000', ioConfig);
+    socket2 = io.connect('http://localhost:3000', ioConfig);
+    socket.on('connect', () => {
+    });
+    socket2.on('connect', () => {
+      done();
+    });
+  });
+
+  afterEach((done) => {
+    if (socket.connected) socket.disconnect();
+    if (socket2.connected) socket2.disconnect();
+    done();
+  });
+
+  describe('Testing the connection', () => {
+    expect.assertions(2);
+    it('Check socket connects', (done) => {
+      expect(socket.connected).toBe(true);
+      expect(socket2.connected).toBe(true);
+      done();
+    });
+
+    services.postMessage = jest.fn().mockResolvedValue(mockMessage);
+
+    it('Check that message route is working', (done) => {
+      socket.emit('/root/new_message', {
+        socketId: mockMessage.socketId,
+        message: mockMessage.message,
+      });
+      expect.assertions(2);
+      socket2.on('/root/update_chat', () => {
+        expect(services.postMessage).toHaveBeenCalled();
+        expect(services.postMessage)
+          .toHaveBeenCalledWith(mockMessage.socketId, mockMessage.message);
+        done();
+      });
+    });
+
+    it('Check socket disconnects', (done) => {
+      expect.assertions(2);
+      socket.disconnect();
+      expect(socket.connected).toBe(false);
+      expect(socket2.connected).toBe(true);
+      done();
+    });
+  });
+});

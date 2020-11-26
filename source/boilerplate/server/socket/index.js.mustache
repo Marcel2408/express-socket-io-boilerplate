@@ -1,5 +1,5 @@
 const io = require('socket.io')();
-const { newSocketConnected, newMessage, onDisconnect } = require('../event_Handlers/index.js');
+const { newSocketConnected, newMessage, onDisconnect } = require('../eventHandlers/index.js');
 
 io.on('connection', (socket) => {
   socket.on('/root/new_socket_connected', () => newSocketConnected(io, socket));

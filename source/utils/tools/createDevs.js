@@ -3,9 +3,10 @@ const fs = require('fs');
 const { multicolor } = require('./logger');
 
 const devs = ['express', 'cors', 'dotenv', 'socket.io', 'socket.io-client'];
-const saveDevs = ['jest'];
+const saveDevs = ['jest', 'nodemon'];
 const scripts = {
   start: 'NODE_ENV=PROD node ./server',
+  dev: 'NODE_ENV=DEV nodemon ./server',
   test: 'NODE_ENV=TEST jest -i',
 };
 exports.createDevs = async ({ database }, appName, path) => {

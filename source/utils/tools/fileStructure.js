@@ -5,5 +5,5 @@ module.exports = {
   'server/routers': ['router.js'],
   'server/services': ['index.js', 'deleteMessage.js', 'getMessages.js', 'postMessage.js', 'updateMessage.js'],
   'server/socket': ['index.js', 'index.test.js'],
-  'server/event_handlers': ['index.js', 'new_message.js', 'new_socket.js', 'on_disconnect.js'],
+  'server/eventHandlers': ['index.js', 'newMessage.js', 'newSocket.js', 'onDisconnect.js'],
 };

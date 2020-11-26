@@ -10,7 +10,7 @@ const userForms = require('../tools/userForms');
 const structure = require('../tools/fileStructure');
 const { createDevs } = require('../tools/createDevs');
 
-async function createBoilerplate(appName, path) {
+async function createBoilerplate(appName, path, test) {
   // check presence of required dependencies
 
   const requiredDep = ['git', 'npm', 'npx'];
@@ -46,12 +46,15 @@ async function createBoilerplate(appName, path) {
   }
 
   // getting user choices for DB, and adding chosen db to answers
-  const answers = await userForms(appName);
+  let answers;
+  if (test === 'MongoDB') answers = { database: { database: 'MongoDB', db_name: 'test_db' } };
+  else if (test === 'PostgreSQL') answers = { database: { database: 'PostgreSQL', db_name: 'test_db' } };
+  else answers = await userForms(appName);
   multicolor('Thank you kindly for your answers!', 'success');
   const db = answers.database.database;
   answers.database[db] = true;
 
-  const serverFolders = ['routers', 'models', 'controllers', 'services', 'socket', 'event_handlers'];
+  const serverFolders = ['routers', 'models', 'controllers', 'services', 'socket', 'eventHandlers'];
   await createDirectories(`${appName}/server`, ...serverFolders);
   multicolor('Creating your file structure now....', 'working');
 

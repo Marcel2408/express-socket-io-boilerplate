@@ -5,6 +5,8 @@ require('dotenv').config({ path: path.join(__dirname, '../.env') });
 
 const currentDb = (process.env.NODE_ENV === 'TEST'
   ? process.env.DB_TEST_NAME
+  : process.env.NODE_ENV === 'DEV'
+  ? process.env.DB_DEV_NAME
   : process.env.DB_NAME);
 
 mongoose.connect(`mongodb://localhost:27017/${currentDb}`, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -22,6 +24,8 @@ const db = {};
 
 const currentDb = (process.env.NODE_ENV === 'TEST'
   ? process.env.DB_TEST_NAME
+  : process.env.NODE_ENV === 'DEV'
+  ? process.env.DB_DEV_NAME
   : process.env.DB_NAME);
 
 // add db username and db password if required

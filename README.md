@@ -19,7 +19,9 @@ To make the package available in the shell as a standalone command, it requires 
 ## Getting Started
 
 The package installs the required folder structure along with a fully integrated testing framework and example database of your choice.
+
 It comes out of the box with environment variables, to allow you to easily run npm test, npm run dev, or npm start to run your program at whatever stage of development you are.
+
 It also runs the following commands to get all the required dependencies to get your project up and running: 
 ```bash
     npm i express, cors, dotenv, socket.io, socket.io-client
@@ -33,16 +35,21 @@ express-socket-io-boilerplate <applicationName>
 
 ### Database
 When you run the command, you will be prompted to enter what kind of database you will be working with.
+
 This will generate an example structure for you to work with.
 
 **If you choose PostgreSQL, go to .env and update your username and password.**
+
 **If you do not have the database already created then the server will not run**
+
 **Whenever you're running the server or tests, make sure you have an open connection to the DB**
 
 
 ### Scripts
 The database works with environment variables, depending whether you are in production, development or testing.
-If you're on Windows, and get 
+
+If you're on Windows, and get the following error:
+
 ```bash
 'NODE_ENV' is not recognized as an internal or external command, operable program or batch file
 ```
@@ -57,7 +64,9 @@ If you wish to run your tests, run:
 npm test
 ```
 The tests will start using your `${DB_NAME}`_test.
+
 These tests work out of the box, and feel free to modify them to meet your requirements as your code changes.
+
 **Make sure you have this database set up otherwise your tests will fail**
 
 If you wish to run your server in development, run: 
@@ -65,6 +74,7 @@ If you wish to run your server in development, run:
 npm run dev
 ```
 This will run your server using nodemon with your database in `${DB_NAME}`_dev, allowing you to make development changes without effecting the production.
+
 **Make sure you have this database set up otherwise starting your server will fail**
 
 If you wish to run your server in production, run: 
@@ -72,6 +82,7 @@ If you wish to run your server in production, run:
 npm run dev
 ```
 This will run your server using node with your database in `${DB_NAME}`.
+
 **Make sure you have this database set up otherwise starting your server will fail**
 
 ##### If you run your server without one of these scripts it will default to production
@@ -79,8 +90,11 @@ This will run your server using node with your database in `${DB_NAME}`.
 ### Testing Framework
 
 We have included out of the box integration and unit testing.
+
 Feel free to use these as a template for your future tests as your code grows.
+
 There are 4 main areas we cover:
+
     Model Testing
         The tests ensure that the models interact with the database as expected.
     Controller Testing

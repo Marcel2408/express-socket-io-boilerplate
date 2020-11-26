@@ -27,7 +27,7 @@ async function createBoilerplate(appName, path, test) {
     // root file created
 
     shell.mkdir(appName);
-    multicolor('Root folder created', 'success');
+    log('Root folder created', 'success');
   } catch (err) {
     throw new Error(err);
   }
@@ -40,7 +40,7 @@ async function createBoilerplate(appName, path, test) {
     // todo: update this so it works when npm installed
     await copyFiles(`${path}/source/boilerplate/public`, `${path}/${appName}/public`);
 
-    multicolor('Base files created', 'success');
+    log('Base files created', 'success');
   } catch (err) {
     throw new Error(err);
   }
@@ -50,13 +50,13 @@ async function createBoilerplate(appName, path, test) {
   if (test === 'MongoDB') answers = { database: { database: 'MongoDB', db_name: 'test_db' } };
   else if (test === 'PostgreSQL') answers = { database: { database: 'PostgreSQL', db_name: 'test_db' } };
   else answers = await userForms(appName);
-  multicolor('Thank you kindly for your answers!', 'success');
+  log('Thank you kindly for your answers!', 'success');
   const db = answers.database.database;
   answers.database[db] = true;
 
   const serverFolders = ['routers', 'models', 'controllers', 'services', 'socket', 'eventHandlers'];
   await createDirectories(`${appName}/server`, ...serverFolders);
-  multicolor('Creating your file structure now....', 'working');
+  log('Creating your file structure now....', 'working');
 
   const structurePaths = Object.keys(structure);
   structurePaths.forEach((folder) => {

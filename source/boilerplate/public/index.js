@@ -3,7 +3,6 @@ const input = document.querySelector('#chat-message');
 const socketCount = document.querySelector('#socket-count');
 const clientId = document.querySelector('#socket-id');
 const homeLink = document.querySelector('#home-section-link');
-const docsLink = document.querySelector('#documentation-link');
 const homeSection = document.querySelector('#home-section');
 const docsSection = document.querySelector('#documentation');
 
@@ -55,18 +54,9 @@ function goToHomepage(e) {
   docsSection.style.opacity = '0';
 }
 
-function goToDocumentation(e) {
-  e.preventDefault();
-  docsSection.style.width = '100vw';
-  docsSection.style.opacity = '1';
-  homeSection.style.width = '0';
-  homeSection.style.opacity = '0';
-}
-
 // Reactive elements > Event listeners
 form.addEventListener('submit', sendMessage);
 homeLink.addEventListener('click', goToHomepage);
-docsLink.addEventListener('click', goToDocumentation);
 
 // Socket events
 // Whenever the server emits '/root/welcome' event, update website

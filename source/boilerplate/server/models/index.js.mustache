@@ -22,13 +22,12 @@ require('dotenv').config({ path: path.join(__dirname, '../.env') });
 const basename = path.basename(__filename);
 const db = {};
 
-const currentDb = (process.env.NODE_ENV === 'TEST'
-  ? process.env.DB_TEST_NAME
-  : process.env.NODE_ENV === 'DEV'
-  ? process.env.DB_DEV_NAME
-  : process.env.DB_NAME);
+let currentDb;
+if (process.env.NODE_ENV === 'TEST') currentDb = process.env.DB_TEST_NAME;
+else if (process.env.NODE_ENV === 'DEV') currentDb = process.env.DB_DEV_NAME;
+else currentDb = process.env.DB_NAME;
 
-// add db username and db password if required
+// add db username and password to .env if required;
 const sequelize = new Sequelize(currentDb, process.env.DB_USERNAME, process.env.DB_PASSWORD, {
   host: 'localhost',
   dialect: 'postgres',

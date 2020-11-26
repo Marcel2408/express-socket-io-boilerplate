@@ -33,7 +33,7 @@ To create an express and socket.io boilerplate in your current directory:
 express-socket-io-boilerplate <applicationName>
 ```
 
-### Database
+## Database
 When you run the command, you will be prompted to enter what kind of database you will be working with.
 
 This will generate an example structure for you to work with.
@@ -45,7 +45,7 @@ This will generate an example structure for you to work with.
 **Whenever you're running the server or tests, make sure you have an open connection to the DB**
 
 
-### Scripts
+## Scripts
 The database works with environment variables, depending whether you are in production, development or testing.
 
 If you're on Windows, and get the following error:
@@ -59,6 +59,8 @@ npm install --save-optional win-node-env
 ```
 to set (common) environment variables.
 
+### Test
+
 If you wish to run your tests, run:
 ```bash
 npm test
@@ -69,6 +71,8 @@ These tests work out of the box, and feel free to modify them to meet your requi
 
 **Make sure you have this database set up otherwise your tests will fail**
 
+### Dev
+
 If you wish to run your server in development, run: 
 ```bash
 npm run dev
@@ -77,9 +81,11 @@ This will run your server using nodemon with your database in `${DB_NAME}`_dev, 
 
 **Make sure you have this database set up otherwise starting your server will fail**
 
+### Production
+
 If you wish to run your server in production, run: 
 ```bash
-npm run dev
+npm start
 ```
 This will run your server using node with your database in `${DB_NAME}`.
 
@@ -87,7 +93,7 @@ This will run your server using node with your database in `${DB_NAME}`.
 
 ##### If you run your server without one of these scripts it will default to production
 
-### Testing Framework
+## Testing Framework
 
 We have included out of the box integration and unit testing.
 
@@ -108,7 +114,7 @@ There are 4 main areas we cover:
         - the models succesfuly create, read, update, and delete information when interacting with the database.
 
 
-### Folder Structure
+## Folder Structure
 The express-socket-io-boilerplate generates the following folder structure:
 ```bash
 └── your_project_name
@@ -149,8 +155,3 @@ The express-socket-io-boilerplate generates the following folder structure:
     ├── package-lock.json
     └── .git
 ```
-
-
-
-### Commands
-From the server directory run nodemon to start the server.

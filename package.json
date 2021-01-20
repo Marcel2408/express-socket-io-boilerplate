@@ -5,29 +5,30 @@
   "main": "./server/index.js",
   "scripts": {
     "check": "npm run lint",
-    "test": "jest",
+    "test": "echo \"No test specified\"",
     "lint": "eslint **/*.js --ignore-pattern node_modules/",
     "prettier": "npx prettier --write .",
     "dev": "nodemon ./src/server"
   },
   "bin": {
-    "express-socket-io-boilerplate": "./bin/createBoilerplate.js"
+    "ewsb-template": "./bin/createBoilerplate.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/EwaRas/express-socket-io-template.git"
+    "url": "git+https://github.com/ElijahBurke/express-socket-io-boilerplate"
   },
   "keywords": [
     "express",
     "socket.io",
+    "testing",
     "template"
   ],
-  "author": "Ewa Rasala",
+  "author": "Elijah Burke",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/EwaRas/express-socket-io-template/issues"
+    "url": "https://github.com/ElijahBurke/express-socket-io-boilerplate/issues"
   },
-  "homepage": "https://github.com/EwaRas/express-socket-io-template#readme",
+  "homepage": "https://github.com/ElijahBurke/express-socket-io-boilerplate",
   "dependencies": {
     "chalk": "^4.1.0",
     "cors": "^2.8.5",

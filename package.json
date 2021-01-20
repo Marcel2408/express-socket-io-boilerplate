@@ -1,6 +1,6 @@
 {
   "name": "ewsb-template",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Basic boilerplate for Express socket.io",
   "main": "./server/index.js",
   "scripts": {

@@ -14,7 +14,19 @@ Node v7.6.0 or higher for ES2015 and async function support.
 
 ## Installation
 
-To make the package available in the shell as a standalone command, it requires a global installation: npm install -g express-socket-io-boilerplate
+To use the tool you can either install the package globally using:
+```bash 
+npm i -g ewsb-template 
+```
+and then run the command 
+```bash
+ewsb-template `${destination_folder_here}`
+```
+
+However, we reccomend using npx to ensure you always have the most up to date version.
+```bash
+npx ewsb-template `{destination_folder_here}
+```
 
 ## Getting Started
 
@@ -26,11 +38,6 @@ It also runs the following commands to get all the required dependencies to get 
 ```bash
     npm i express, cors, dotenv, socket.io, socket.io-client
     npm i jest nodemon -D
-```
-
-To create an express and socket.io boilerplate in your current directory:
-```bash
-express-socket-io-boilerplate <applicationName>
 ```
 
 ## Database
